@@ -1,0 +1,29 @@
+name: Configure the iOS App
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true 
+
+      - name: Build iOS
+        shell: bash
+        run: |
+          bundle exec fastlane Create_app
+        env:
+          PRODUCE_USERNAME: ${{ secrets.APPLE_ID }}
+          PRODUCE_APP_IDENTIFIER: ${{ secrets.APP_ID }}
+
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value

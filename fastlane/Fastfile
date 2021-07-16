@@ -40,6 +40,11 @@ platform :ios do
     upload_to_app_store
   end
 
+  lane :create_app do
+    produce
+  end
+
+
   lane :init_ci do
     github_action(
       api_token: ENV["GH_PAT"],
