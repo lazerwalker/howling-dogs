@@ -38,6 +38,8 @@ jobs:
         shell: bash
         run: |
           brew install libsodium
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${MATCH_DEPLOY_KEY}"
           # bundle exec fastlane init_ci
           bundle exec fastlane beta
         env:
@@ -47,3 +49,5 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
           MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
