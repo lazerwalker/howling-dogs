@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           brew install libsodium
-          # bundle exec fastlane init_ci
+          bundle exec fastlane init_ci
           bundle exec fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
