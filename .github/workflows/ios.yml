@@ -52,9 +52,9 @@ jobs:
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
           APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
-          
+
           # Generate a new .p8 from https://appstoreconnect.apple.com/access/users, then "Keys"
           # I'm trying "App Manager" access
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }} # Raw .p8 value
+          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
