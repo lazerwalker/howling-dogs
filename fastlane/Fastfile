@@ -17,8 +17,8 @@
 
 default_platform(:ios)
 
-org, repo = ENV["GITHUB_REPOSITORY"]
-match_org, match_repo = ENV["MATCH_REPOSITORY"]
+org, repo = ENV["GITHUB_REPOSITORY"].split("/")
+match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
