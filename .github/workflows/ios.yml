@@ -48,4 +48,5 @@ jobs:
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
           FASTLANE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
