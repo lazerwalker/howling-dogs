@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           npm install
-          npx cap init ios
+          npx cap add ios
           npx cap sync
           npx cordova-res ios --skip-config --copy
 
