@@ -37,9 +37,6 @@ jobs:
       - name: Build iOS
         shell: bash
         run: |
-          cp -r fastlane ios
-          cd ios
-          bundle install
           brew install libsodium
           bundle exec fastlane init_ci
           bundle exec fastlane beta
