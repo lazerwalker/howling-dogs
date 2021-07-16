@@ -32,7 +32,7 @@ platform :ios do
 
   lane :init_ci do
     github_action(
-      api_token: ENV["GITHUB_TOKEN"], # TODO: Allow passing in a discrete PAT instead of the default one
+      api_token: ENV["GH_PAT"],
       org: org,
       repo: repo,
       match_org: match_org,
