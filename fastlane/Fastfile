@@ -28,6 +28,14 @@ app_store_connect_api_key(
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    produce(
+      username: ENV["FASTLANE_USER"],
+      app_identifier: ENV["APP_ID"],
+      app_name: "Test App",
+      language: "English",
+      app_version: "1.0"
+    )
+    
     match(type: "development")
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
     upload_to_testflight

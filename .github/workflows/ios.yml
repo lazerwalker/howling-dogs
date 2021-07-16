@@ -44,7 +44,7 @@ jobs:
           bundle exec fastlane beta
         env:
           # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-          # FASTLANE_USER: ${{ secrets.APPLE_ID }}
+          FASTLANE_USER: ${{ secrets.APPLE_ID }}
           # FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           GH_PAT: ${{ secrets.GH_PAT }}
           MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
