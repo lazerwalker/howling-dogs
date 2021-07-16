@@ -37,7 +37,9 @@ jobs:
       - name: Build iOS
         shell: bash
         run: |
-          fastlane match development
+          bundle exec fastlane match development
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.APPLE_ID }}
+          FASTLANE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
