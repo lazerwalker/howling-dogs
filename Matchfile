@@ -1,4 +1,5 @@
-git_url("git@github.com:lazerwalker/twine-app-builder-fastlane-match.git")
+match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
+git_url("git@github.com:#{match_org}#{match_repo}.git")
 
 storage_mode("git")
 
