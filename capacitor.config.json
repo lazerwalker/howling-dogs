@@ -1,6 +1,6 @@
 {
-  "appId": "package.com.id",
-  "appName": "testname",
+  "appId": "com.lazerwalker.howling-dogs",
+  "appName": "Howling Dogs",
   "webDir": "src",
   "bundledWebRuntime": false
 }
