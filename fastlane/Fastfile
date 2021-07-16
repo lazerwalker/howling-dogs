@@ -16,7 +16,7 @@
 # TODO: Set up subdirectories properly so this contains both iOS and Android and doesn't need to be cp'd in
 
 default_platform(:ios)
-setup_ci
+# setup_ci
 
 org, repo = ENV["GITHUB_REPOSITORY"].split("/")
 match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
