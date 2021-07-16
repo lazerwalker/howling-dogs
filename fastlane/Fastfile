@@ -30,7 +30,7 @@ platform :ios do
   end
 
   desc "Push a new build to the App Store"
-  lane :beta do
+  lane :appstore do
     match(type: "appstore")
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
     upload_to_app_store
