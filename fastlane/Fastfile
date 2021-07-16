@@ -23,7 +23,7 @@ match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    setup_ci
+    # setup_ci
     match
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
     upload_to_testflight
