@@ -13,13 +13,17 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-# TODO: Set up subdirectories properly so this contains both iOS and Android and doesn't need to be cp'd in
+org, repo = ENV["GITHUB_REPOSITORY"].split("/")
+match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
 
 default_platform(:ios)
 # setup_ci
 
-org, repo = ENV["GITHUB_REPOSITORY"].split("/")
-match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
+app_store_connect_api_key(
+  key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+  issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+  key_content: ENV["APP_STORE_CONNECT_KEY"]
+)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
