@@ -1,0 +1,25 @@
+{
+  "name": "howling-dogs",
+  "version": "1.0.0",
+  "description": "![Build and Test](https://github.com/lazerwalker/twine-app-builder/actions/workflows/main.yml/badge.svg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazerwalker/howling-dogs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lazerwalker/howling-dogs/issues"
+  },
+  "homepage": "https://github.com/lazerwalker/howling-dogs#readme",
+  "dependencies": {
+    "@capacitor/cli": "^3.1.1",
+    "@capacitor/core": "^3.1.1",
+    "@capacitor/ios": "^3.1.1",
+    "cordova-res": "^0.15.3"
+  }
+}

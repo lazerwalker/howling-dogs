@@ -1,0 +1,6 @@
+{
+  "appId": "package.com.id",
+  "appName": "testname",
+  "webDir": "src",
+  "bundledWebRuntime": false
+}

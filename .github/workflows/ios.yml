@@ -1,0 +1,32 @@
+name: Build the app for iOS
+
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Set up project
+        shell: bash
+        run: |
+          npm install
+          npx cap init ios
+          npx cap sync
+          npx cordova-res ios --skip-config --copy
+
+
