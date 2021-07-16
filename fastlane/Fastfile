@@ -1,0 +1,40 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# TODO: Set up subdirectories properly so this contains both iOS and Android and doesn't need to be cp'd in
+
+default_platform(:ios)
+
+org, repo = ENV["GITHUB_REPOSITORY"]
+match_org, match_repo = ENV["MATCH_REPOSITORY"]
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    setup_ci
+    build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
+    upload_to_testflight
+  end
+
+  lane :init_ci do
+    github_action(
+      api_token: ENV["GITHUB_TOKEN"], # TODO: Allow passing in a discrete PAT instead of the default one
+      org: org,
+      repo: repo,
+      match_org: match_org,
+      match_repo: match_repo,
+    )
+  end
+end

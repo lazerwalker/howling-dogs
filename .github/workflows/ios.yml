@@ -37,7 +37,12 @@ jobs:
       - name: Build iOS
         shell: bash
         run: |
-          bundle exec fastlane match development
+          cp -r fastlane ios
+          cd ios
+          bundle install
+          brew install libsodium
+          bundle exec fastlane init_ci
+          bundle exec fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
