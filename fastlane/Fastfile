@@ -50,7 +50,12 @@ platform :ios do
       key_content: ENV['APP_STORE_CONNECT_KEY']
     )
     match(type: "appstore")
-    debug
+    
+    update_project_team(
+      path: "ios/App/App.xcodeproj",
+      teamid: ENV["TEAM_ID"]
+    )
+
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
     upload_to_app_store
   end
