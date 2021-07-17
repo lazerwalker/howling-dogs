@@ -41,14 +41,13 @@ platform :ios do
 
     match(type: "development")
 
-    pp ENV
-
     update_code_signing_settings(
       use_automatic_signing: false,
       team_id: ENV["TEAM_ID"],
       code_sign_identity: "iPhone Developer",
       path: "ios/App/App.xcodeproj",
-      # Can I get profile_name or profile_uuid?
+      profile_name: lane_context[SharedValues::SIGH_NAME],
+      profile_uuid: lane_context[SharedValues::SIGH_UUID]
     )
 
 
