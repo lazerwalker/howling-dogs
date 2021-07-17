@@ -41,12 +41,15 @@ platform :ios do
 
     debug
 
-    update_project_team(
+    update_code_signing_setings(
+      use_automatic_signing: false,
+      team_id: ENV["TEAM_ID"],
+      code_sign_identity: "iPhone Developer",
       path: "ios/App/App.xcodeproj",
-      teamid: ENV["TEAM_ID"]
+      # Can I get profile_name or profile_uuid?
     )
 
-    disable_automatic_code_signing
+
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
     upload_to_testflight
   end
