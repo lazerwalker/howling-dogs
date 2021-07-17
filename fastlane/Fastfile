@@ -38,6 +38,14 @@ platform :ios do
     # )
 
     match(type: "development")
+
+    debug
+
+    update_project_team(
+      path: "ios/App/App.xcodeproj",
+      teamid: ENV["TEAM_ID"]
+    )
+
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
     upload_to_testflight
   end
