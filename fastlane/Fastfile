@@ -1,3 +1,5 @@
+require 'pp'
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -39,7 +41,7 @@ platform :ios do
 
     match(type: "development")
 
-    debug
+    pp ENV
 
     update_code_signing_settings(
       use_automatic_signing: false,
