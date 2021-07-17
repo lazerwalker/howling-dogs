@@ -38,7 +38,7 @@ platform :ios do
     # )
 
     match(type: "development")
-    build_app(workspace: "ios/App/App.xcworkspace", scheme: "App")
+    build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
     upload_to_testflight
   end
 
