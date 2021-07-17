@@ -46,6 +46,7 @@ platform :ios do
       teamid: ENV["TEAM_ID"]
     )
 
+    disable_automatic_code_signing
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
     upload_to_testflight
   end
