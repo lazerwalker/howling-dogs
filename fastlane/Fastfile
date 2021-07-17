@@ -41,6 +41,8 @@ platform :ios do
 
     match(type: "development")
 
+    puts "Name and UUID: #{lane_context[SharedValues::SIGH_NAME]}, #{lane_context[SharedValues::SIGH_UUID]}"
+
     update_code_signing_settings(
       use_automatic_signing: false,
       team_id: ENV["TEAM_ID"],
