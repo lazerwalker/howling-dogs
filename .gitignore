@@ -1,3 +1,6 @@
 ios
 android
 .env
+
+fastlane/README.md
+fastlane/report.xml
