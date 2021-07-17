@@ -29,25 +29,19 @@ platform :ios do
       issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
       key_content: ENV['APP_STORE_CONNECT_KEY']
     )
-    # produce(
-    #   username: ENV["FASTLANE_USER"],
-    #   app_identifier: ENV["APP_ID"],
-    #   app_name: "Test App", # TODO: Thread through from config
-    #   language: "English", # TODO: Optional vars
-    #   app_version: "1.0" # TODO: Thread through from build number
-    #   # TODO: Optional Team ID
-    #   # TODO: Company Name may be required if first app for an account
-    # )
 
     match(type: "development")
+    match(type: "appstore")
+
+    pp ENV
 
     update_code_signing_settings(
       use_automatic_signing: false,
-      team_id: ENV["sigh_#{ENV['APP_ID']}_development_team-id"],
-      code_sign_identity: "iPhone Developer",
+      team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
+      code_sign_identity: "iPhone Distribution",
       path: "ios/App/App.xcodeproj",
-      profile_name: ENV["sigh_#{ENV['APP_ID']}_development_profile-name"],
-      profile_uuid: ENV["sigh_#{ENV['APP_ID']}_development"]
+      profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
+      profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
     )
 
 
