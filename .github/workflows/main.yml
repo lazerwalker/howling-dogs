@@ -84,18 +84,6 @@ jobs:
         with:
           fileName: "win-certificate.pfx"
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
-
-      - name: Set description and version number
-        run: |
-          node -e "\
-          const fs = require('fs');\
-          const pkg=require('./app/package.json');\
-          pkg.description=process.env.DESCRIPTION;\
-          pkg.version=process.env.VERSION_NUMBER;\
-          pkg.author=process.env.AUTHOR;\
-          fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
-        env:
-          VERSION_NUMBER: ${{ steps.package-version.outputs.version }}
           
       - name: Build the app
         env:
