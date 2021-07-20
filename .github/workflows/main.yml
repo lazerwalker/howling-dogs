@@ -105,12 +105,11 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const tag = `${context.runNumber}.0.0`
-            const ref = `refs/tags/${tag}`
             try {
               const result = await github.git.getRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref // this used to be just tags/tag, not refs/tags/tag
+                ref: `tags/${tag}`
               })
               console.log("Found!")
             } catch(e) {
@@ -130,7 +129,7 @@ jobs:
 
                 const createRef = await github.git.createRef({
                   ...context.repo,
-                  ref,
+                  ref: `refs/tags/${tag}`,
                   sha: createTag.data.sha
                 })
                 if (createRef.status !== 201) {
