@@ -104,7 +104,7 @@ jobs:
           const fs = require('fs');\
           const pkg=require('./app/package.json');\
           pkg.description=process.env.DESCRIPTION;\
-          pkg.version=process.env.VERSION;\
+          pkg.version=process.env.VERSION_NUMBER;\
           pkg.author=process.env.AUTHOR;\
           fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
         env:
