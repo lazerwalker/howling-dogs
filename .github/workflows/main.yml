@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: 12
 
-       - name: Test for presence of Windows codesigning secrets
+      - name: Test for presence of Windows codesigning secrets
         id: vars
         shell: bash
         run: |
