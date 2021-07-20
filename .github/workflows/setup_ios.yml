@@ -1,8 +1,6 @@
-name: Configure the iOS App
+name: Configure Building iOS Apps
 
-defaults:
-  run:
-    shell: bash
+on: workflow_dispatch
 
 jobs:
   build:
