@@ -91,7 +91,7 @@ jobs:
       - name: Build the app
         working-directory: ./app
         env:
-          APP_NAME: Howling Dogs
+          APP_NAME: ${{ secrets.APP_NAME }}
           #APPLE_ID: ${{ secrets.APPLE_ID }}
           #APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
@@ -196,14 +196,15 @@ jobs:
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+          
           APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
+          APP_NAME: ${{ secrets.APP_NAME }}
 
           # Generate a new .p8 from https://appstoreconnect.apple.com/access/users, then "Keys"
           # I'm trying "App Manager" access
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
-          TEAM_ID: ${{ secrets.TEAM_ID }}
 
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION_NUMBER: ${{ steps.package-version.outputs.version }}

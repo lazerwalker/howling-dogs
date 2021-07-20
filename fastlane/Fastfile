@@ -88,6 +88,7 @@ platform :ios do
     build_app(
       workspace: "ios/App/App.xcworkspace", 
       scheme: "App", 
+      output_name: "#{ENV['APP_NAME']} - #{ENV['VERSION_NUMBER']} (#{ENV['BUILD_NUMBER']}).ipa"
       xcargs: "-allowProvisioningUpdates"
     )
     
