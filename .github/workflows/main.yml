@@ -116,9 +116,9 @@ jobs:
               // Modified from https://github.com/negz/create-tag/blob/main/src/main.ts
               try {
                   const createTag = await github.git.createTag({
-                  ...github.context.repo,
+                  ...context.repo,
                   ref,
-                  object: github.context.sha,
+                  object: context.sha,
                   type: 'commit'
                 })
                 if (createTag.status !== 201) {
@@ -127,7 +127,7 @@ jobs:
                 }
 
                 const createRef = await client.git.createRef({
-                  ...github.context.repo,
+                  ...context.repo,
                   ref,
                   sha: createTag.data.sha
                 })
