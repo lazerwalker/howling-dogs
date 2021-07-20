@@ -1,9 +1,11 @@
-name: Build the app for iOS
+name: Build the app for iOS and submit to the App Store
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
+  inputs:
+    version_number:
+      description: 'Version Number'
+        required: true
+        default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
 
 defaults:
   run:
@@ -41,11 +43,9 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
           # bundle exec fastlane init_ci
-          bundle exec fastlane beta
+          bundle exec fastlane app_store
         env:
-          # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
-          # FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           GH_PAT: ${{ secrets.GH_PAT }}
           MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

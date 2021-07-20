@@ -1,0 +1,60 @@
+name: Build the app for iOS and upload to TestFlight
+
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true 
+
+      - name: Set up project
+        shell: bash
+        run: |
+          npm install
+          npx cap add ios
+          npx cap sync
+          npx cordova-res ios --skip-config --copy
+
+      - name: Build iOS
+        shell: bash
+        run: |
+          # brew install libsodium # TODO: Is this necessary?
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${MATCH_DEPLOY_KEY}"
+          # bundle exec fastlane init_ci
+          bundle exec fastlane beta
+        env:
+          FASTLANE_USER: ${{ secrets.APPLE_ID }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+          APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
+
+          # Generate a new .p8 from https://appstoreconnect.apple.com/access/users, then "Keys"
+          # I'm trying "App Manager" access
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
+          TEAM_ID: ${{ secrets.TEAM_ID }}
