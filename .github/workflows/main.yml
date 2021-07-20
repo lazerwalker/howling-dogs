@@ -53,19 +53,7 @@ jobs:
         env:
           CERTIFICATE_WINDOWS_PFX: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
-      - name: Check out Electron app template
-        uses: actions/checkout@v2
-        with:
-          repository: lazerwalker/electron-wrapper-template
-          ref: v1.1.0
-          path: app
-
-      - name: Set up Electron app environment
-        working-directory: ./app
-        run: npm install
-
       - name: Generate icons
-        working-directory: ./app
         run: npm run build-desktop-icons
 
       - name: Add MacOS certs
