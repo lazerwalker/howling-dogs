@@ -71,7 +71,7 @@ increment_build_number(
 
     increment_version_number( 
       version_number: ENV["VERSION_NUMBER"],
-      path: "ios/App/App.xcodeproj",
+      xcodeproj: "ios/App/App.xcodeproj",
     )
 
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
