@@ -104,12 +104,13 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const ref = `tags/${context.runNumber}.0.0`
+            const tag = `${context.runNumber}.0.0`
+            const ref = `refs/tags/${tag}`
             try {
               const result = await github.git.getRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref 
+                ref // this used to be just tags/tag, not refs/tags/tag
               })
               console.log("Found!")
             } catch(e) {
@@ -117,7 +118,7 @@ jobs:
               try {
                   const createTag = await github.git.createTag({
                   ...context.repo,
-                  tag: ref,
+                  tag,
                   message: `Auto-create tag '${ref}'`,
                   object: context.sha,
                   type: 'commit'
