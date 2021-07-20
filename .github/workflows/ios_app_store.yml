@@ -5,8 +5,8 @@ on:
     inputs:
       version_number:
         description: 'Version Number'
-          required: true
-          default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
+        required: true
+        default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
 
 defaults:
   run:
