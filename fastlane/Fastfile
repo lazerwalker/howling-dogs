@@ -82,6 +82,7 @@ platform :ios do
       force: true,
       skip_metadata: true,
       skip_screenshots: true,
+      precheck_include_in_app_purchases: false # Doesn't work with App Store Connect API key
     )
   end
 
