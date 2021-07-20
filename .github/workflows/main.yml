@@ -64,13 +64,9 @@ jobs:
         working-directory: ./app
         run: npm install
 
-      - name: move webapp into Electron folder
-        run: |
-          cp -r ./src/* ./app/src
-          mv ./resources/icon.png ./app
       - name: Generate icons
         working-directory: ./app
-        run: npm run build-icons
+        run: npm run build-desktop-icons
 
       - name: Add MacOS certs
         if: matrix.os == 'macos-latest'
@@ -111,7 +107,6 @@ jobs:
           VERSION_NUMBER: ${{ steps.package-version.outputs.version }}
           
       - name: Build the app
-        working-directory: ./app
         env:
           #APPLE_ID: ${{ secrets.APPLE_ID }}
           #APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
@@ -119,7 +114,7 @@ jobs:
           CERTIFICATE_NAME: ${{ secrets.CERTIFICATE_NAME }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-        run: npm run make
+        run: npx electron-forge make
 
       # TODO: Once this works, pull it out into its own TS file
       - name: Create tag if necessary
