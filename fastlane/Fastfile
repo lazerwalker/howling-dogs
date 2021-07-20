@@ -64,7 +64,7 @@ increment_build_number(
       use_automatic_signing: false,
       team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
       code_sign_identity: "iPhone Distribution",
-      xcodeproj: "ios/App/App.xcodeproj",
+      path: "ios/App/App.xcodeproj",
       profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
       profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
     )
