@@ -76,8 +76,12 @@ platform :ios do
     )
 
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
+    
+    # TODO: Variable flow for either handling metadata/screenshots or not
     upload_to_app_store(
-      force: true
+      force: true,
+      skip_metadata: true,
+      skip_screenshots: true,
     )
   end
 
