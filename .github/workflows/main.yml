@@ -145,11 +145,11 @@ jobs:
         with:
           tag_name: ${{ format('{0}.0.0', github.run_number) }}
           files: |
-            app/out/**/*.deb
-            app/out/**/*.dmg
-            app/out/**/*Setup.exe
-            app/out/**/*.rpm
-            app/out/**/*.zip
+            out/**/*.deb
+            out/**/*.dmg
+            out/**/*Setup.exe
+            out/**/*.rpm
+            out/**/*.zip
 
   ios-testflight:
     runs-on: macos-latest
