@@ -26,6 +26,10 @@ jobs:
           ruby-version: 2.6
           bundler-cache: true 
 
+      - name: Read package.json
+        uses: tyankatsu0105/read-package-version-actions@v1
+        id: package-version
+
       - name: Set up project
         shell: bash
         run: |
@@ -60,3 +64,4 @@ jobs:
           TEAM_ID: ${{ secrets.TEAM_ID }}
 
           BUILD_NUMBER: ${{ github.run_number }}
+          VERSION_NUMBER: ${{ steps.package-version.outputs.version }}

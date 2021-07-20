@@ -47,6 +47,11 @@ platform :ios do
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
+    increment_version_number( 
+      version_number: ENV["VERSION_NUMBER"],
+      xcodeproj: "ios/App/App.xcodeproj",
+    )
+
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
     upload_to_testflight
   end

@@ -5,8 +5,7 @@ on:
     inputs:
       version_number:
         description: 'Version Number'
-        required: true
-        default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
+        required: false
 
 defaults:
   run:
@@ -28,6 +27,10 @@ jobs:
         with:
           ruby-version: 2.6
           bundler-cache: true 
+
+      - name: Read package.json
+        uses: tyankatsu0105/read-package-version-actions@v1
+        id: package-version         
 
       - name: Set up project
         shell: bash
@@ -62,4 +65,4 @@ jobs:
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
           TEAM_ID: ${{ secrets.TEAM_ID }}
 
-          VERSION_NUMBER: ${{ github.event.inputs.version_number }}
+          VERSION_NUMBER: ${{ github.event.inputs.version_number || steps.package-version.outputs.version }} }}
