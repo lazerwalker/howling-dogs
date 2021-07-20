@@ -184,7 +184,6 @@ jobs:
       - name: Build iOS
         shell: bash
         run: |
-          # brew install libsodium # TODO: Is this necessary?
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
           bundle exec fastlane beta
@@ -196,7 +195,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
-          
+
           APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
           APP_NAME: ${{ secrets.APP_NAME }}
 
