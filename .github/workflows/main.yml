@@ -43,6 +43,9 @@ jobs:
         with:
           node-version: 12
 
+      - name: Install node deps
+        run: npm install
+
       - name: Test for presence of Windows codesigning secrets
         id: vars
         shell: bash
