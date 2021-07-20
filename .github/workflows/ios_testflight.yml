@@ -58,3 +58,5 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
           TEAM_ID: ${{ secrets.TEAM_ID }}
+
+          BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
