@@ -1,11 +1,12 @@
 name: Build the app for iOS and submit to the App Store
 
-on: workflow_dispatch
-  inputs:
-    version_number:
-      description: 'Version Number'
-        required: true
-        default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
+on: 
+  workflow_dispatch:
+    inputs:
+      version_number:
+        description: 'Version Number'
+          required: true
+          default: '1.0' # TODO: Can I set this programmatically? Or leave unset?
 
 defaults:
   run:
@@ -60,3 +61,5 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
           TEAM_ID: ${{ secrets.TEAM_ID }}
+
+          VERSION_NUMBER: ${{ github.event.inputs.version_number }}
