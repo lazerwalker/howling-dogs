@@ -1,4 +1,4 @@
-name: Build the app for iOS and upload to TestFlight
+name: iOS TestFlight
 
 on:
   push:

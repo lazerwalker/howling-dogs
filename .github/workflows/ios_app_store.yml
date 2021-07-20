@@ -1,4 +1,4 @@
-name: Build the app for iOS and submit to the App Store
+name: iOS App Store
 
 on: 
   workflow_dispatch:

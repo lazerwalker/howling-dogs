@@ -1,4 +1,4 @@
-name: Configure Building iOS Apps
+name: iOS One-Time Setup
 
 on: workflow_dispatch
 

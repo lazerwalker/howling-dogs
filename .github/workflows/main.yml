@@ -1,4 +1,4 @@
-name: Build the Twine game
+name: Windows and MacOS
 
 # TODO: If the new tag stuff works, we'll still need an early script step
 # That puts the correct tag number in an env var
