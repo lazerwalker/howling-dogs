@@ -52,7 +52,12 @@ platform :ios do
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
-    build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
+    build_app(
+      workspace: "ios/App/App.xcworkspace", 
+      scheme: "App", 
+      xcargs: "-allowProvisioningUpdates"
+    )
+    
     upload_to_testflight
   end
 
@@ -80,7 +85,11 @@ platform :ios do
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
-    build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
+    build_app(
+      workspace: "ios/App/App.xcworkspace", 
+      scheme: "App", 
+      xcargs: "-allowProvisioningUpdates"
+    )
     
     # TODO: Variable flow for either handling metadata/screenshots or not
     upload_to_app_store(
