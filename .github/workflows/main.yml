@@ -92,8 +92,8 @@ jobs:
         working-directory: ./app
         env:
           APP_NAME: Howling Dogs
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          #APPLE_ID: ${{ secrets.APPLE_ID }}
+          #APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: npm run make
