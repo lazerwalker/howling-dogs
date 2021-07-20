@@ -118,7 +118,7 @@ jobs:
                   const createTag = await github.git.createTag({
                   ...context.repo,
                   tag,
-                  message: `Auto-create tag '${ref}'`,
+                  message: `Auto-create tag '${tag}'`,
                   object: context.sha,
                   type: 'commit'
                 })
