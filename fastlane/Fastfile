@@ -46,7 +46,7 @@ platform :ios do
     # And until that happens, autoincrementing won't work because we don't commit the xcodeproj
     # increment_build_number(
     #   build_number: ENV["BUILD_NUMBER"],
-    #   path: "ios/App/App.xcodeproj",
+    #   xcodeproj: "ios/App/App.xcodeproj",
     # )
 
     build_app(workspace: "ios/App/App.xcworkspace", scheme: "App", xcargs: "-allowProvisioningUpdates")
@@ -67,7 +67,7 @@ platform :ios do
       use_automatic_signing: false,
       team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
       code_sign_identity: "iPhone Distribution",
-      path: "ios/App/App.xcodeproj",
+      xcodeproj: "ios/App/App.xcodeproj",
       profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
       profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
     )
