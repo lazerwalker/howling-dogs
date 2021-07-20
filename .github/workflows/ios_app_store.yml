@@ -1,11 +1,6 @@
 name: iOS App Store
 
-on: 
-  workflow_dispatch:
-    inputs:
-      version_number:
-        description: 'Version Number'
-        required: false
+on: workflow_dispatch
 
 defaults:
   run:
@@ -65,4 +60,4 @@ jobs:
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
           TEAM_ID: ${{ secrets.TEAM_ID }}
 
-          VERSION_NUMBER: ${{ github.event.inputs.version_number || steps.package-version.outputs.version }} }}
+          VERSION_NUMBER: ${{ steps.package-version.outputs.version }} }}
