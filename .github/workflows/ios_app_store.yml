@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Move config to root dir
-        run: mv -r config/* .
-        
+        run: mv config/* .
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
