@@ -156,7 +156,7 @@ jobs:
             out/**/*.rpm
             out/**/*.zip
 
-  ios-testflight:
+  ios:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -169,7 +169,6 @@ jobs:
           echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
           echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
           echo "BUNDLE_ID=$(cat ./package.json | jq -r '.bundleId')" >> $GITHUB_ENV
-          echo "SKIP_PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
 
       - name: Move config to root dir
         run: mv config/* .
