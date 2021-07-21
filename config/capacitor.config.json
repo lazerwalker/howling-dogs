@@ -1,6 +1,6 @@
 {
-  "appId": "com.lazerwalker.howlingdogs",
-  "appName": "Howling Dogs",
+  "appId": "This will be replaced with 'bundleId' from package.json",
+  "appName": "This will be replaced with 'displayName' from package.json",
   "webDir": "src",
   "bundledWebRuntime": false
 }
