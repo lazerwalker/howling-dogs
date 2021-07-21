@@ -11,6 +11,9 @@
   "config": {
     "forge": "./forge.config.js"
   },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
   "devDependencies": {
     "@capacitor/cli": "^3.1.1",
     "@capacitor/core": "^3.1.1",
@@ -22,7 +25,6 @@
     "@electron-forge/maker-zip": "6.0.0-beta.52",
     "cordova-res": "^0.15.3",
     "electron": "^13.1.1",
-    "electron-icon-builder": "^1.0.2",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-icon-builder": "^1.0.2"
   }
 }
