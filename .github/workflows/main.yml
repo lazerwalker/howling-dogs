@@ -177,10 +177,10 @@ jobs:
         run: |
           node -e "\
           const fs = require('fs');\
-          const pkg=require('./capacitor.config.json');\
-          pkg.appId=process.env.BUNDLE_ID;\
-          pkg.appName=process.env.DISPLAY_NAME;\
-          fs.writeFileSync('./capacitor.config.json',JSON.stringify(pkg,undefined,'\t'));"
+          const pkg = require('./capacitor.config.json');\
+          pkg.appId = process.env.BUNDLE_ID;\
+          pkg.appName = process.env.DISPLAY_NAME;\
+          fs.writeFileSync('./capacitor.config.json', JSON.stringify(pkg,undefined,'\t'));"
 
        - name: Install Node.js
         uses: actions/setup-node@v1
