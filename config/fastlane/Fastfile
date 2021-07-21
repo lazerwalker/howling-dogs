@@ -35,11 +35,11 @@ platform :ios do
 
     update_code_signing_settings(
       use_automatic_signing: false,
-      team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
+      team_id: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_team-id"],
       code_sign_identity: "iPhone Distribution",
       path: "ios/App/App.xcodeproj",
-      profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
-      profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
+      profile_name: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_profile-name"],
+      profile_uuid: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore"]
     )
 
     increment_build_number(
@@ -48,7 +48,7 @@ platform :ios do
     )
 
     increment_version_number( 
-      version_number: ENV["VERSION_NUMBER"],
+      version_number: ENV["VERSION"],
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
@@ -74,11 +74,11 @@ platform :ios do
 
     update_code_signing_settings(
       use_automatic_signing: false,
-      team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
+      team_id: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_team-id"],
       code_sign_identity: "iPhone Distribution",
       path: "ios/App/App.xcodeproj",
-      profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
-      profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
+      profile_name: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_profile-name"],
+      profile_uuid: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore"]
     )
 
     increment_build_number(
@@ -87,14 +87,14 @@ platform :ios do
     )
 
     increment_version_number( 
-      version_number: ENV["VERSION_NUMBER"],
+      version_number: ENV["VERSION"],
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
     build_app(
       workspace: "ios/App/App.xcworkspace", 
       scheme: "App", 
-      output_name: "#{ENV['APP_NAME']} - #{ENV['VERSION_NUMBER']} (#{ENV['BUILD_NUMBER']}).ipa",
+      output_name: "#{ENV['APP_NAME']} - #{ENV['VERSION']} (#{ENV['BUILD_NUMBER']}).ipa",
       xcargs: "-allowProvisioningUpdates"
     )
     
@@ -114,11 +114,11 @@ platform :ios do
 
     update_code_signing_settings(
       use_automatic_signing: false,
-      team_id: ENV["sigh_#{ENV['APP_ID']}_appstore_team-id"],
+      team_id: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_team-id"],
       code_sign_identity: "iPhone Distribution",
       path: "ios/App/App.xcodeproj",
-      profile_name: ENV["sigh_#{ENV['APP_ID']}_appstore_profile-name"],
-      profile_uuid: ENV["sigh_#{ENV['APP_ID']}_appstore"]
+      profile_name: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore_profile-name"],
+      profile_uuid: ENV["sigh_#{ENV['BUNDLE_ID']}_appstore"]
     )
 
     increment_build_number(
@@ -127,14 +127,14 @@ platform :ios do
     )
 
     increment_version_number( 
-      version_number: ENV["VERSION_NUMBER"],
+      version_number: ENV["VERSION"],
       xcodeproj: "ios/App/App.xcodeproj",
     )
 
     build_app(
       workspace: "ios/App/App.xcworkspace", 
       scheme: "App", 
-      output_name: "#{ENV['APP_NAME']} - #{ENV['VERSION_NUMBER']} (#{ENV['BUILD_NUMBER']}).ipa",
+      output_name: "#{ENV['APP_NAME']} - #{ENV['VERSION']} (#{ENV['BUILD_NUMBER']}).ipa",
       xcargs: "-allowProvisioningUpdates"
     )
     

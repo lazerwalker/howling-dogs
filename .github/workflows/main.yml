@@ -37,9 +37,12 @@ jobs:
           # Delete or comment out this line to disable that
           PUBLISH_ON_WEB: true
         run: |
-          echo "DESCRIPTION=${DESCRIPTION}" >> $GITHUB_ENV
-          echo "AUTHOR=${AUTHOR}" >> $GITHUB_ENV
-          echo "PUBLISH_ON_WEB=${PUBLISH_ON_WEB}" >> $GITHUB_ENV
+          echo "APP_NAME=$(cat ./package.json | jq '.name')" >> $GITHUB_ENV
+          echo "DESCRIPTION=$(cat ./package.json | jq '.description')" >> $GITHUB_ENV
+          echo "AUTHOR=$(cat ./package.json | jq '.author')" >> $GITHUB_ENV
+          echo "VERSION=$(cat ./package.json | jq '.version')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$(cat ./package.json | jq '.bundleId')" >> $GITHUB_ENV
+          echo "SKIP_PUBLISH_ON_WEB=$(cat ./package.json | jq '.publishOnWeb')" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -99,7 +102,7 @@ jobs:
         run: npx electron-forge make
 
       - name: Publish to GitHub Pages
-        # TODO: Re-gate this on an env var
+        if: env.SKIP_PUBLISH_ON_WEB
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -179,10 +182,6 @@ jobs:
           ruby-version: 2.6
           bundler-cache: true 
 
-      - name: Read package.json
-        uses: tyankatsu0105/read-package-version-actions@v1
-        id: package-version
-
       - name: Set up project
         shell: bash
         run: |
@@ -206,8 +205,10 @@ jobs:
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
 
-          APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
-          APP_NAME: ${{ secrets.APP_NAME }}
+          BUNDLE_ID: ${{ env.BUNDLE_ID }} # TODO: Fetch from config file
+          APP_NAME: ${{ env.APP_NAME }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          VERSION: ${{ env.VERSION }}
 
           # Generate a new .p8 from https://appstoreconnect.apple.com/access/users, then "Keys"
           # I'm trying "App Manager" access
@@ -215,8 +216,7 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
 
-          BUILD_NUMBER: ${{ github.run_number }}
-          VERSION_NUMBER: ${{ steps.package-version.outputs.version }}
+
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
         env:
