@@ -1,5 +1,6 @@
 {
   "name": "howling-dogs",
+  "displayName": "Howling's Dogs",
   "bundleId": "com.lazerwalker.howlingdogs",
   "version": "1.1.0",
   "description": "My game description!",

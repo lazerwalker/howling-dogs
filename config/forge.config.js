@@ -21,7 +21,7 @@ console.log(appVersion)
 
 module.exports = {
     packagerConfig: {
-        name: process.env.APP_NAME,
+        name: process.env.DISPLAY_NAME,
         executableName: process.env.APP_NAME,
         appVersion: appVersion,
         buildVersion: appVersion,

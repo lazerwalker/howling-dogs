@@ -28,12 +28,13 @@ jobs:
       
       - name: Set game configuration
         run: |
-          echo "APP_NAME=$(cat ./package.json | jq '.name')" >> $GITHUB_ENV
-          echo "DESCRIPTION=$(cat ./package.json | jq '.description')" >> $GITHUB_ENV
-          echo "AUTHOR=$(cat ./package.json | jq '.author')" >> $GITHUB_ENV
-          echo "VERSION=$(cat ./package.json | jq '.version')" >> $GITHUB_ENV
-          echo "BUNDLE_ID=$(cat ./package.json | jq '.bundleId')" >> $GITHUB_ENV
-          echo "SKIP_PUBLISH_ON_WEB=$(cat ./package.json | jq '.publishOnWeb')" >> $GITHUB_ENV
+          echo "APP_NAME=$(cat ./package.json | jq -r '.name')" >> $GITHUB_ENV
+          echo "DISPLAY_NAME=$(cat ./package.json | jq -r '.displayName')" >> $GITHUB_ENV
+          echo "DESCRIPTION=$(cat ./package.json | jq -r '.description')" >> $GITHUB_ENV
+          echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
+          echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$(cat ./package.json | jq -r '.bundleId')" >> $GITHUB_ENV
+          echo "SKIP_PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v1
