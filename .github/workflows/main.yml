@@ -182,7 +182,7 @@ jobs:
           pkg.appName = process.env.DISPLAY_NAME;\
           fs.writeFileSync('./capacitor.config.json', JSON.stringify(pkg,undefined,'\t'));"
 
-       - name: Install Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
