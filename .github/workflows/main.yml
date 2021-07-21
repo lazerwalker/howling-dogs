@@ -98,7 +98,14 @@ jobs:
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: npx electron-forge make
 
-      # TODO: Once this works, pull it out into its own TS file
+      - name: Publish to GitHub Pages
+        # TODO: Re-gate this on an env var
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
+
+      # TODO: Consider pulling it out into its own TS file
       - name: Create tag if necessary
         uses: actions/github-script@v4
         with:
