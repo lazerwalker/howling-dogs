@@ -27,15 +27,6 @@ jobs:
         run: mv config/* .
       
       - name: Set game configuration
-        env:
-          DESCRIPTION: My Twine game description
-
-          # By default, the author will be your name on GitHub. You can manually change this.
-          AUTHOR: ${{ github.repository_owner }}
-
-          # If this to 'true', a copy of your game will also be hosted on the web at https://USERNAME.github.io/REPO_NAME
-          # Delete or comment out this line to disable that
-          PUBLISH_ON_WEB: true
         run: |
           echo "APP_NAME=$(cat ./package.json | jq '.name')" >> $GITHUB_ENV
           echo "DESCRIPTION=$(cat ./package.json | jq '.description')" >> $GITHUB_ENV

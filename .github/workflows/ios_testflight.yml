@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set game configuration
+        run: |
+          echo "APP_NAME=$(cat ./package.json | jq '.name')" >> $GITHUB_ENV
+          echo "DESCRIPTION=$(cat ./package.json | jq '.description')" >> $GITHUB_ENV
+          echo "AUTHOR=$(cat ./package.json | jq '.author')" >> $GITHUB_ENV
+          echo "VERSION=$(cat ./package.json | jq '.version')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$(cat ./package.json | jq '.bundleId')" >> $GITHUB_ENV
+
       - name: Move config to root dir
         run: mv config/* .
 
@@ -24,11 +32,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
-          bundler-cache: true 
-
-      - name: Read package.json
-        uses: tyankatsu0105/read-package-version-actions@v1
-        id: package-version         
+          bundler-cache: true    
 
       - name: Set up project
         shell: bash
@@ -55,10 +59,10 @@ jobs:
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
           
-          APP_ID: ${{ secrets.APP_ID }} # TODO: Fetch from config file
-          APP_NAME: ${{ secrets.APP_NAME }}
-          VERSION_NUMBER: ${{ steps.package-version.outputs.version }}
+          BUNDLE_ID: ${{ env.BUNDLE_ID }} # TODO: Fetch from config file
+          APP_NAME: ${{ env.APP_NAME }}
           BUILD_NUMBER: ${{ github.run_number }}
+          VERSION: ${{ env.VERSION }}
 
           # Generate a new .p8 from https://appstoreconnect.apple.com/access/users, then "Keys"
           # I'm trying "App Manager" access
