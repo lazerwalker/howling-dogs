@@ -61,7 +61,7 @@ platform :ios do
   end
 
   desc "Push a new beta build to TestFlight"
-  lane :testflight do
+  lane :testflight_beta do
     setup_ci
     app_store_connect_api_key(
       key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
