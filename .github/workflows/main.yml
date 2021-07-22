@@ -228,12 +228,12 @@ jobs:
 
       - name: Edit manifest.plist to link to the newly-generated IPA
         run: |
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:0:url string $IPA_URL" ~/Desktop/test.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:1:url string $ICON_URL" ~/Desktop/test.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:2:url string $ICON_URL" ~/Desktop/test.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-identifier string $BUNDLE_ID" ~/Desktop/test.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-version string $VERSION" ~/Desktop/test.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:title string $APP_NAME" ~/Desktop/test.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:assets:0:url string $IPA_URL" ./manifest.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:assets:1:url string $ICON_URL" ./manifest.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:assets:2:url string $ICON_URL" ./manifest.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-identifier string $BUNDLE_ID" ./manifest.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-version string $VERSION" ./manifest.plist
+          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:title string $APP_NAME" ./manifest.plist
 
         env:
           IPA_URL: https://google.com 
