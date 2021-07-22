@@ -34,7 +34,7 @@ jobs:
           echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
           echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
           echo "BUNDLE_ID=$(cat ./package.json | jq -r '.bundleId')" >> $GITHUB_ENV
-          echo "SKIP_PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
+          echo "PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -94,7 +94,7 @@ jobs:
         run: npx electron-forge make
 
       - name: Publish to GitHub Pages
-        if: env.SKIP_PUBLISH_ON_WEB
+        if: env.PUBLISH_ON_WEB
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
