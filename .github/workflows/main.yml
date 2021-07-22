@@ -215,7 +215,7 @@ jobs:
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
 
-          BUNDLE_ID: ${{ env.BUNDLE_ID }
+          BUNDLE_ID: ${{ env.BUNDLE_ID }}
           APP_NAME: ${{ env.APP_NAME }}
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION: ${{ env.VERSION }}
