@@ -226,6 +226,11 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
 
+      - name: Find IPA name
+      # Fastlane does some string formatting to the IPA name we pass in. Let's find it on disk.
+        run:
+          echo "IPA_NAME=$(find *.ipa)" >> $GITHUB_ENV
+
       - name: Edit manifest.plist to link to the newly-generated IPA
         run: |
           /usr/libexec/PlistBuddy -c "Set :items:0:assets:0:url string $IPA_URL" ./manifest.plist
@@ -234,9 +239,8 @@ jobs:
           /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-identifier string $BUNDLE_ID" ./manifest.plist
           /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-version string $VERSION" ./manifest.plist
           /usr/libexec/PlistBuddy -c "Set :items:0:metadata:title string $APP_NAME" ./manifest.plist
-
         env:
-          IPA_URL: https://google.com 
+          IPA_URL: ${{ format('https://github.com/{0}/releases/download/{1}.0.0/{2}', github.repository, github.run_number, env.IPA_NAME) }}
           ICON_URL: https://github.com/lazerwalker/howling-dogs/blob/main/resources/icon.png
           BUNDLE_ID: ${{ env.BUNDLE_ID }}
           VERSION: ${{ env.VERSION }}
@@ -249,7 +253,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ format('{0}.0.0', github.run_number) }}
-          body: ${{ format('Registered iOS testers can download this build by tapping [here](https://github.com/{0}/releases/download/{1}/manifest.plist) from their approved device', github.repository, github.run_number) }}
+          body: ${{ format('Registered iOS testers can download this build by tapping [here](https://github.com/{0}/releases/download/{1}.0.0/manifest.plist) from their approved device', github.repository, github.run_number) }}
           files: |
             *.ipa
             manifest.plist
