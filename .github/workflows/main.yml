@@ -284,6 +284,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ format('{0}.0.0', github.run_number) }}
-          body: ${{ format('Registered iOS testers can download this build by tapping [here](itms-services://?action=download-manifest&url=https://github.com/{0}/releases/download/{1}.0.0/manifest.plist) from their approved device', github.repository, github.run_number) }}
+          body: ${{ format('Registered iOS testers can download this build by copying and pasting this link into the Safari address bar on an approved device: itms-services://?action=download-manifest&url=https://github.com/{0}/releases/download/{1}.0.0/manifest.plist', github.repository, github.run_number) }}
           files: |
             manifest.plist
