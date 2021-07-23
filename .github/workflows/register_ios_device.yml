@@ -1,0 +1,42 @@
+name: iOS App Store
+
+on: 
+  workflow_dispatch:
+    inputs:
+      name:
+        description: What the device should be called on Apple's dev portal
+        required: true
+      udid:
+        description: The iOS device's UDID
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Move config to root dir
+        run: mv config/* .
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true     
+
+      - name: Add device
+        shell: bash
+        run: |
+          bundle exec fastlane register_uuid
+        env:
+          UUID: ${{ github.events.inputs.uuid }}
+          DEVICE_NAME: ${{ github.events.inputs.name }}          
+
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
