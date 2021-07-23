@@ -248,13 +248,13 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const result = await github.request('GET /repos/{owner}/{repo}/releases/{release_id}/assets', {
+            const result = await github.request('GET /repos/{owner}/{repo}/releases/tags/{release_id}', {
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: `${context.runNumber}.0.0`
             })
-            console.log(result)
-            return result[result.length - 1].browser_download_url
+            console.log(result.assets)
+            return result[result.assets.length - 1].browser_download_url
 
       - name: Edit manifest.plist to link to the newly-generated IPA
         run: |
