@@ -1,4 +1,4 @@
-name: iOS App Store
+name: Register iOS UDID
 
 on: 
   workflow_dispatch:
