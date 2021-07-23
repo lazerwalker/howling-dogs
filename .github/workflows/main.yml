@@ -260,7 +260,7 @@ jobs:
               release: release.data.id
             })
             console.log(release)
-            return release.assets.find(a => a.name.indexOf(".ipa") !== -1).browser_download_url
+            return release.data.assets.find(a => a.name.indexOf(".ipa") !== -1).browser_download_url
 
       - name: Edit manifest.plist to link to the newly-generated IPA
         run: |
