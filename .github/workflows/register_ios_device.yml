@@ -34,7 +34,7 @@ jobs:
         run: |
           bundle exec fastlane register_uuid
         env:
-          UUID: ${{ github.events.inputs.uuid }}
+          UDID: ${{ github.events.inputs.udid }}
           DEVICE_NAME: ${{ github.events.inputs.name }}          
 
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
