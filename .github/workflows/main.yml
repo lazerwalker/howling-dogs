@@ -253,11 +253,12 @@ jobs:
               repo: context.repo.repo,
               tag: `${context.runNumber}.0.0`
             })
+            console.log(release)
             const assets = await github.request('GET /repos/{owner}/{repo}/releases/{release}/assets', {
               owner: context.repo.owner,
               repo: context.repo.repo,
               release: release.data.id
-            }
+            })
             console.log(release)
             return release.assets.find(a => a.name.indexOf(".ipa") !== -1).browser_download_url
 
