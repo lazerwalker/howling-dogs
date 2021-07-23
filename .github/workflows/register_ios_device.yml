@@ -32,7 +32,7 @@ jobs:
       - name: Add device
         shell: bash
         run: |
-          bundle exec fastlane register_uuid
+          bundle exec fastlane register_udid
         env:
           UDID: ${{ github.events.inputs.udid }}
           DEVICE_NAME: ${{ github.events.inputs.name }}          
