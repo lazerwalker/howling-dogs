@@ -10,7 +10,8 @@ platform :android do
   lane :build do
     gradle(
       task: 'assemble',
-      build_type: 'Release'
+      build_type: 'Release',
+      project_dir: 'android'
     )  
   end 
 end
