@@ -340,6 +340,13 @@ jobs:
           APP_NAME: ${{ env.APP_NAME }}
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION: ${{ env.VERSION }}
+      
+      - name: LS
+        run: ls
+
+      - name: Android LS
+        run: ls
+        working-directory: android
 
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
@@ -348,4 +355,4 @@ jobs:
         with:
           tag_name: ${{ format('{0}.0.0', github.run_number) }}
           files: |
-            *.apk
+            android/*.apk

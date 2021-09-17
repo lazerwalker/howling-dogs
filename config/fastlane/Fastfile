@@ -26,7 +26,7 @@ platform :ios do
       key_content: ENV['APP_STORE_CONNECT_KEY']
     )
 
-    # TODO: Will OTA IPAs require dev or appstore?
+    # TODO: Will OTA IPAs require dev or appstore?git 
     match(type: "appstore")
 
     update_code_signing_settings(
