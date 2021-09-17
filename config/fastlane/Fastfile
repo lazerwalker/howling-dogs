@@ -3,7 +3,17 @@ require 'pp'
 org, repo = ENV["GITHUB_REPOSITORY"].split("/")
 match_org, match_repo = ENV["MATCH_REPOSITORY"].split("/")
 
-default_platform(:ios)
+default_platform(:ios)  
+
+platform :android do
+  desc "Generate an APK"
+  lane :apk do
+    gradle(
+      task: 'assemble',
+      build_type: 'Release'
+    )  
+  end 
+end
 
 platform :ios do
   desc "Generate a production IPA"
