@@ -348,6 +348,10 @@ jobs:
         run: ls
         working-directory: android
 
+      - name: build ls
+        run: ls
+        working-directory: android/build
+
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
         env:
