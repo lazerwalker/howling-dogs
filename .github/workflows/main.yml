@@ -333,7 +333,7 @@ jobs:
 
       - name: Build Android
         shell: bash
-        working-durectory: android
+        working-directory: android
         run: |
           bundle exec fastlane android build
         env: 
