@@ -205,7 +205,7 @@ jobs:
         run: |
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
-          bundle exec fastlane build
+          bundle exec fastlane ios build
         env:
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -334,7 +334,7 @@ jobs:
       - name: Build Android
         shell: bash
         run: |
-          bundle exec fastlane apk
+          bundle exec fastlane android build
         env: 
           BUNDLE_ID: ${{ env.BUNDLE_ID }} # TODO: Fetch from config file
           APP_NAME: ${{ env.APP_NAME }}

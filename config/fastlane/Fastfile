@@ -7,7 +7,7 @@ default_platform(:ios)
 
 platform :android do
   desc "Generate an APK"
-  lane :apk do
+  lane :build do
     gradle(
       task: 'assemble',
       build_type: 'Release'

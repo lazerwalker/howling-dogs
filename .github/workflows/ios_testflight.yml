@@ -58,8 +58,8 @@ jobs:
           # brew install libsodium # TODO: Is this necessary?
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
-          # bundle exec fastlane init_ci
-          bundle exec fastlane testflight_beta
+          # bundle exec fastlane ios init_ci
+          bundle exec fastlane ios testflight_beta
         env:
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
           GH_PAT: ${{ secrets.GH_PAT }}
