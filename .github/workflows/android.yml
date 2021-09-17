@@ -1,4 +1,4 @@
-name: iOS TestFlight
+name: Android APK
 
 on: workflow_dispatch
 
