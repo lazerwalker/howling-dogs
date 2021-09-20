@@ -341,6 +341,12 @@ jobs:
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION: ${{ env.VERSION }}
 
+      - name: ls
+        run: ls
+    
+      - name: Recursive LS
+        run: find "$PWD"
+        
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
 
