@@ -340,26 +340,10 @@ jobs:
           APP_NAME: ${{ env.APP_NAME }}
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION: ${{ env.VERSION }}
-      
-      - name: LS
-        run: ls
 
-      - name: Android LS
-        run: ls
-        working-directory: android
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
 
-      - name: build ls
-        run: ls
-        working-directory: android/build
-
-      - name: ls all the way down
-        run: ls
-        working-directory: android/build/intermediates
-
-      - name: Recursive LS
-        working-directory: android
-        run: find "$PWD"
-        
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
         env:
