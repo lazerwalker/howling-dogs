@@ -127,4 +127,5 @@ platform :ios do
       git_url: "git@github.com:#{match_org}/#{match_repo}.git",
       app_identifier: ENV["BUNDLE_ID"]
     )
+  end
 end
