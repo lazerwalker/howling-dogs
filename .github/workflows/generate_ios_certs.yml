@@ -10,6 +10,8 @@ jobs:
   generate_certs:
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: Move config to root dir
         run: mv config/* .
 
@@ -28,7 +30,7 @@ jobs:
         with:
           ruby-version: 2.6
           bundler-cache: true 
-          
+
       - name: Build iOS
         shell: bash
         run: |
