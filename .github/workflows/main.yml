@@ -1,4 +1,4 @@
-name: Build
+name: Build Windows, Mac, and Android
 
 # TODO: If the new tag stuff works, we'll still need an early script step
 # That puts the correct tag number in an env var
