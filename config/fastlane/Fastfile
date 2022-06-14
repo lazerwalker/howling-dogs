@@ -96,10 +96,6 @@ platform :ios do
       match_repo: match_repo,
       writable_deploy_key: true
     )
-
-    # TODO: Can we do this on first run immediately after github_action, or does this need to be a subsequent run?
-    match(type: "development")
-    match(type: "appstore")
   end
 
   lane :register_udid do
