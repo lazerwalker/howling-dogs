@@ -346,9 +346,6 @@ jobs:
     
       - name: Recursive LS
         run: find "$PWD"
-        
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
 
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
