@@ -224,62 +224,7 @@ jobs:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
-
-      # The rest of this workflow is only necessary if we're supporting IPA download, which I don't think we are.
-      # Leaving in for posterity, but probably delete this before release
-
-      - name: Release on GitHub (Automated Tag)
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ format('{0}.0.0', github.run_number) }}
-          files: |
-            *.ipa
-      
-
-      # Nasty stuff below!
-      # So, in order to set up over-the-air IPA distribution, manifest.plist needs to have the URL to the IPA
-      # However, GitHub Releases opaquely makes some string substitutions to your filenames
-      # e.g. replaces spaces and some characters (like single quotes) with periods
-      # SO, we have to wait until after we've uploaded the IPA, at which point we can query the Releases API to get its path
-      # and then upload the new updated manifest.plist file and body description.
-
-      - name: Fetch path to uploaded IPA
-        id: get-ipa-url
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const release = await github.request('GET /repos/{owner}/{repo}/releases/tags/{tag}', {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: `${context.runNumber}.0.0`
-            })
-            console.log(release)
-            const assets = await github.request('GET /repos/{owner}/{repo}/releases/{release}/assets', {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release: release.data.id
-            })
-            console.log(release)
-            return release.data.assets.find(a => a.name.indexOf(".ipa") !== -1).browser_download_url
-
-      - name: Edit manifest.plist to link to the newly-generated IPA
-        run: |
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:0:url string $IPA_URL" ./manifest.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:1:url string $ICON_URL" ./manifest.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:assets:2:url string $ICON_URL" ./manifest.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-identifier string $BUNDLE_ID" ./manifest.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:bundle-version string $VERSION" ./manifest.plist
-          /usr/libexec/PlistBuddy -c "Set :items:0:metadata:title string $APP_NAME" ./manifest.plist
-        env:
-          IPA_URL: ${{steps.get-ipa-url.outputs.result}}
-          ICON_URL: https://github.com/lazerwalker/howling-dogs/blob/main/resources/icon.png
-          BUNDLE_ID: ${{ env.BUNDLE_ID }}
-          VERSION: ${{ env.VERSION }}
-          APP_NAME: ${{ env.APP_NAME }}
-
+          
   android:
     runs-on: ubuntu-latest
 
