@@ -225,6 +225,9 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }} # Raw .p8 value
 
+      # The rest of this workflow is only necessary if we're supporting IPA download, which I don't think we are.
+      # Leaving in for posterity, but probably delete this before release
+
       - name: Release on GitHub (Automated Tag)
         uses: softprops/action-gh-release@v1
         env:
@@ -234,6 +237,7 @@ jobs:
           files: |
             *.ipa
       
+
       # Nasty stuff below!
       # So, in order to set up over-the-air IPA distribution, manifest.plist needs to have the URL to the IPA
       # However, GitHub Releases opaquely makes some string substitutions to your filenames
@@ -275,17 +279,7 @@ jobs:
           BUNDLE_ID: ${{ env.BUNDLE_ID }}
           VERSION: ${{ env.VERSION }}
           APP_NAME: ${{ env.APP_NAME }}
-          # TODO: do the ones already in env need to be explicitly set here or not?
 
-      - name: Release on GitHub (Automated Tag)
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ format('{0}.0.0', github.run_number) }}
-          body: ${{ format('Registered iOS testers can download this build by copying and pasting the following link into the Safari address bar on an approved device. itms-services://?action=download-manifest&url=https://github.com/{0}/releases/download/{1}.0.0/manifest.plist', github.repository, github.run_number) }}
-          files: |
-            manifest.plist
   android:
     runs-on: ubuntu-latest
 
@@ -336,7 +330,7 @@ jobs:
         run: |
           bundle exec fastlane android build
         env: 
-          BUNDLE_ID: ${{ env.BUNDLE_ID }} # TODO: Fetch from config file
+          BUNDLE_ID: ${{ env.BUNDLE_ID }}
           APP_NAME: ${{ env.APP_NAME }}
           BUILD_NUMBER: ${{ github.run_number }}
           VERSION: ${{ env.VERSION }}
