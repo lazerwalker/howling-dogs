@@ -3,7 +3,6 @@
   "displayName": "Howling's Dogs",
   "bundleId": "com.lazerwalker.howlingdogs",  
   "platformSpecificBundleIds": {
-    "ios": "com.lazerwalker.howlingdogs.ios",
     "android": "com.lazerwalker.howlingdogs.android",
     "mac": "com.lazerwalker.howlingdogs.mac"
   },
