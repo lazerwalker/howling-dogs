@@ -19,7 +19,7 @@ jobs:
           echo "DESCRIPTION=$(cat ./package.json | jq -r '.description')" >> $GITHUB_ENV
           echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
           echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
-          echo "BUNDLE_ID=($(cat ./package.json | jq -r '.iOSBundleId') || $(cat ./package.json | jq -r '.bundleId')" >> $GITHUB_ENV
+          echo "BUNDLE_ID="$(cat ./package.json | jq -r 'if has(".platformSpecificBundleIds.ios") then .platformSpecificBundleIds.ios else .bundleId end')" >>$GITHUB_ENV
           echo "PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
                 
       - uses: ruby/setup-ruby@v1
