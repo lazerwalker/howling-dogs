@@ -1,7 +1,12 @@
 {
   "name": "howling-dogs",
   "displayName": "Howling's Dogs",
-  "bundleId": "com.lazerwalker.howlingdogs",
+  "bundleId": "com.lazerwalker.howlingdogs",  
+  "platformSpecificBundleIds": {
+    "ios:": "com.lazerwalker.howlingdogs.ios",
+    "android": "com.lazerwalker.howlingdogs.android",
+    "mac": "com.lazerwalker.howlingdogs.mac"
+  },
   "version": "1.1.0",
   "description": "My game description!",
   "author": "Em Lazer-Walker",

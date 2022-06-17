@@ -1,6 +1,6 @@
 {
-  "appId": "This will be replaced with 'bundleId' from package.json",
-  "appName": "This will be replaced with 'displayName' from package.json",
+  "appId": "Do not edit, this will be replaced with 'bundleId' from package.json",
+  "appName": "Do not edit, this will be replaced with 'displayName' from package.json",
   "webDir": "src",
   "bundledWebRuntime": false
 }
