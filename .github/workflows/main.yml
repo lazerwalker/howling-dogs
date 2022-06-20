@@ -14,19 +14,14 @@ defaults:
     shell: bash
 
 jobs:
-  desktop:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-
+  windows:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: Move config to root dir
         run: mv config/* .
       
-      # TODO: Vary BUNDLE_ID logic based on Mac/Windows platform
       - name: Set game configuration
         run: |
           echo "APP_NAME=$(cat ./package.json | jq -r '.name')" >> $GITHUB_ENV
@@ -34,7 +29,7 @@ jobs:
           echo "DESCRIPTION=$(cat ./package.json | jq -r '.description')" >> $GITHUB_ENV
           echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
           echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
-          echo "BUNDLE_ID=$(cat ./package.json | jq -r '.bundleId')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$(cat ./package.json | jq -r '.platformSpecificBundleIds.windows // .bundleId')" >>$GITHUB_ENV
           echo "PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
 
       - name: Install Node.js
@@ -58,26 +53,8 @@ jobs:
       - name: Generate icons
         run: npm run build-desktop-icons
 
-      - name: Add MacOS certs
-        if: matrix.os == 'macos-latest'
-        shell: bash
-        run: |
-          if ! [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then exit 0 ; fi
-          KEY_CHAIN=build.keychain
-          CERTIFICATE_P12=certificate.p12
-          echo $CERTIFICATE_OSX_APPLICATION | base64 --decode > $CERTIFICATE_P12
-          security create-keychain -p actions $KEY_CHAIN
-          security default-keychain -s $KEY_CHAIN
-          security unlock-keychain -p actions $KEY_CHAIN
-          security import $CERTIFICATE_P12 -k $KEY_CHAIN -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
-          security set-key-partition-list -S apple-tool:,apple: -s -k actions $KEY_CHAIN
-          rm -fr *.p12
-        env:
-          CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
-          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-
       - name: Add Windows certificate
-        if: matrix.os == 'windows-latest' && steps.vars.outputs.HAS_WINDOWS_CREDS
+        if: steps.vars.outputs.HAS_WINDOWS_CREDS
         id: write_file
         uses: timheuer/base64-to-file@v1
         with:
@@ -86,9 +63,6 @@ jobs:
           
       - name: Build the app
         env:
-          #APPLE_ID: ${{ secrets.APPLE_ID }}
-          #APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          #APPLE_PROVIDER: ${{ secrets.APPLE_PROVIDER }}
           CERTIFICATE_NAME: ${{ secrets.CERTIFICATE_NAME }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
@@ -152,9 +126,123 @@ jobs:
           tag_name: ${{ format('{0}.0.0', github.run_number) }}
           files: |
             out/**/*.deb
-            out/**/*.dmg
             out/**/*Setup.exe
             out/**/*.rpm
+            out/**/*.zip
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Move config to root dir
+        run: mv config/* .
+      
+      - name: Set game configuration
+        run: |
+          echo "APP_NAME=$(cat ./package.json | jq -r '.name')" >> $GITHUB_ENV
+          echo "DISPLAY_NAME=$(cat ./package.json | jq -r '.displayName')" >> $GITHUB_ENV
+          echo "DESCRIPTION=$(cat ./package.json | jq -r '.description')" >> $GITHUB_ENV
+          echo "AUTHOR=$(cat ./package.json | jq -r '.author')" >> $GITHUB_ENV
+          echo "VERSION=$(cat ./package.json | jq -r '.version')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$(cat ./package.json | jq -r '.platformSpecificBundleIds.mac // .bundleId')" >>$GITHUB_ENV
+          echo "PUBLISH_ON_WEB=$(cat ./package.json | jq -r '.publishOnWeb')" >> $GITHUB_ENV
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install node deps
+        run: npm install
+
+
+      - name: Generate icons
+        run: npm run build-desktop-icons
+
+      - name: Add MacOS certs
+        shell: bash
+        run: |
+          if ! [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then exit 0 ; fi
+          KEY_CHAIN=build.keychain
+          CERTIFICATE_P12=certificate.p12
+          echo $CERTIFICATE_OSX_APPLICATION | base64 --decode > $CERTIFICATE_P12
+          security create-keychain -p actions $KEY_CHAIN
+          security default-keychain -s $KEY_CHAIN
+          security unlock-keychain -p actions $KEY_CHAIN
+          security import $CERTIFICATE_P12 -k $KEY_CHAIN -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
+          security set-key-partition-list -S apple-tool:,apple: -s -k actions $KEY_CHAIN
+          rm -fr *.p12
+        env:
+          CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+
+    
+      - name: Build the app
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_PROVIDER: ${{ secrets.APPLE_PROVIDER }}
+        run: npx electron-forge make
+
+      - name: Publish to GitHub Pages
+        if: ${{ env.PUBLISH_ON_WEB == 'true' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
+
+      # TODO: Consider pulling it out into its own TS file
+      - name: Create tag if necessary
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const tag = `${context.runNumber}.0.0`
+            try {
+              const result = await github.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`
+              })
+              console.log("Found!")
+            } catch(e) {
+              // Modified from https://github.com/negz/create-tag/blob/main/src/main.ts
+              try {
+                  const createTag = await github.git.createTag({
+                  ...context.repo,
+                  tag,
+                  message: `Auto-create tag '${tag}'`,
+                  object: context.sha,
+                  type: 'commit'
+                })
+                if (createTag.status !== 201) {
+                  core.setFailed(`Failed to create tag object (status=${createTag.status})`)
+                  return
+                }
+
+                const createRef = await github.git.createRef({
+                  ...context.repo,
+                  ref: `refs/tags/${tag}`,
+                  sha: createTag.data.sha
+                 })
+                if (createRef.status !== 201) {
+                  core.setFailed(`Failed to create tag ref(status = ${createRef.status})`)
+                  return
+                }
+              } catch (e2) {
+                  core.setFailed(e2.message)
+              }
+            }
+      
+      - name: Release on GitHub (Automated Tag)
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ format('{0}.0.0', github.run_number) }}
+          files: |
+            out/**/*.dmg
             out/**/*.zip
 
   ios:
