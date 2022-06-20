@@ -33,10 +33,6 @@ module.exports = {
             'gatekeeper-assess': false,
             hardenedRuntime: true,
             identity: process.env['CERTIFICATE_NAME']
-        },
-        osxNotarize: {
-            appleId: process.env['APPLE_ID'],
-            appleIdPassword: process.env['APPLE_ID_PASSWORD'],
         }
     },
     makers: [
@@ -69,5 +65,9 @@ module.exports = {
 
 
 if (process.env["APPLE_PROVIDER"]) {
-    module.exports.packagerConfig.osxNotarize.ascProvider = process.env["APPLE_PROVIDER"]
+    module.exports.packagerConfig.osxNotarize = {
+        appleId: process.env['APPLE_ID'],
+        appleIdPassword: process.env['APPLE_ID_PASSWORD'],
+        ascProvider: process.env["APPLE_PROVIDER"]
+    }
 }
