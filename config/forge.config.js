@@ -52,10 +52,11 @@ module.exports = {
         name: "@electron-forge/maker-deb",
         config: {}
     },
-    { 
-        name: '@electron-forge/maker-dmg',
-        config: {}
-    },
+    // This errors out when we try to build it on mac. I'm not sure why.
+    // { 
+    //     name: '@electron-forge/maker-dmg',
+    //     config: {}
+    // },
     {
         name: "@electron-forge/maker-rpm",
         config: {}
