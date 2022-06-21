@@ -372,9 +372,6 @@ jobs:
 
       - name: ls apk
         run: ls android/app/build/outputs/apk/release
-    
-      - name: ls aab
-        run: ls android/app/build/outputs/aab/release
 
       - name: Recursive LS
         run: find "$PWD"
