@@ -18,21 +18,21 @@
     "forge": "./forge.config.js"
   },
   "dependencies": {
-    "@capacitor/android": "^3.2.3",
+    "@capacitor/android": "^3.6.0",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
-    "@capacitor/cli": "^3.1.1",
-    "@capacitor/core": "^3.2.3",
-    "@capacitor/ios": "^3.2.3",
+    "@capacitor/cli": "^3.6.0",
+    "@capacitor/core": "^3.6.0",
+    "@capacitor/ios": "^3.6.0",
     "@electron-forge/cli": "6.0.0-beta.52",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.64",
     "@electron-forge/maker-deb": "6.0.0-beta.52",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.64",
     "@electron-forge/maker-rpm": "6.0.0-beta.52",
     "@electron-forge/maker-squirrel": "6.0.0-beta.52",
     "@electron-forge/maker-zip": "6.0.0-beta.52",
-    "cordova-res": "^0.15.3",
-    "electron": "^13.1.1",
+    "cordova-res": "^0.15.4",
+    "electron": "^13.6.9",
     "electron-icon-builder": "^1.0.2"
   }
 }
