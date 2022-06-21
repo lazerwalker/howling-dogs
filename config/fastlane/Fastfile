@@ -11,7 +11,7 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: 'Debug',
-      project_dir: 'android'
+      project_dir: 'android',
       gradle_path: "./gradlew",
       build_type: "Release",
       properties: {
