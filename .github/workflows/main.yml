@@ -371,7 +371,7 @@ jobs:
           VERSION: ${{ env.VERSION }}
 
       - name: ls
-        run: ls
+        run: ls android/app/build/outputs/apk/release
     
       - name: Recursive LS
         run: find "$PWD"

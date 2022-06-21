@@ -12,7 +12,15 @@ platform :android do
       task: 'assemble',
       build_type: 'Debug',
       project_dir: 'android'
-    )  
+      gradle_path: "./gradlew",
+      build_type: "Release",
+      properties: {
+        "android.injected.signing.store.file" => ENV['KEY_STORE'],
+        "android.injected.signing.store.password" => ENV['KEY_STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD']
+      }
+    ) 
   end 
 end
 
